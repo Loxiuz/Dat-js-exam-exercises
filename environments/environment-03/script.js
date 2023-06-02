@@ -16,9 +16,7 @@ function start() {
 }
 
 function showSortedProducts() {
-  if (document.querySelector("#select-sort-by").value === "inStock") {
-    products.sort((a, b) => b.inStock - a.inStock);
-  }
+  products.sort((a, b) => b.inStock - a.inStock);
   const listContainer = document.querySelector("#list-container");
   listContainer.innerHTML = "";
   listContainer.insertAdjacentHTML(
