@@ -2,4 +2,52 @@
 
 window.addEventListener("load", start);
 
-function start() {}
+const students = [];
+
+function start() {
+  document
+    .querySelector("#create-student-form button")
+    .addEventListener("click", createStudent);
+}
+
+function showStudents() {
+  const tbody = document.querySelector("#students-table-body");
+  tbody.innerHTML = "";
+  for (const student of students) {
+    tbody.insertAdjacentHTML(
+      "beforeend",
+      /* html */ `
+        <tr>
+          <td>${student.name}</td>
+          <td>${student.email}</td>
+          <td>${student.age}</td>
+        </tr>  
+      `
+    );
+  }
+}
+
+function createStudent(event) {
+  event.preventDefault();
+  const createForm = document.querySelector("#create-student-form");
+  if (hasCorrectEmail(createForm.email.value)) {
+    const newStudent = {
+      name: createForm.name.value,
+      email: createForm.email.value,
+      age: createForm.age.value,
+    };
+    students.push(newStudent);
+  }
+  showStudents();
+}
+
+function hasCorrectEmail(email) {
+  if (
+    email.indexOf("@") > 3 &&
+    email.substring(email.indexOf("@"), email.length) === "@stud.kea.dk"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
