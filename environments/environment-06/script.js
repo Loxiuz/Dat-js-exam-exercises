@@ -7,18 +7,7 @@ const basket = [];
 
 async function start() {
   await getProducts();
-  addToBasket(products[0]);
-  addToBasket(products[1]);
-  addToBasket(products[5]);
-  addToBasket(products[5]);
-  addToBasket(products[5]);
-  addToBasket(products[5]);
-  addToBasket(products[8]);
-  addToBasket(products[8]);
-
-  removeFromBasket(products[5]);
-  removeFromBasket(products[1]);
-  console.log(basket);
+  showProducts();
 }
 
 async function getProducts() {
@@ -32,7 +21,6 @@ async function getProducts() {
 }
 
 async function showProducts() {
-  const products = await getProducts();
   for (let i = 0; i < products.length; i++) {
     document.querySelector("#products").insertAdjacentHTML(
       "beforeend",
@@ -54,19 +42,34 @@ async function showProducts() {
 }
 
 function showBasket() {
-  const basketHtml = document.querySelector("#basket");
-  basketHtml.innerHTML = "";
+  const basketTbody = document.querySelector("#basket tbody");
+  basketTbody.innerHTML = "";
   for (let i = 0; i < basket.length; i++) {
-    basketHtml.insertAdjacentHTML(
+    basketTbody.insertAdjacentHTML(
       "beforeend",
       /* html */ `
-        <article>
-           <h3>${basket[i].name}</h3>
-           <p>vægt: ${basket[i].weight} g</p>
-           <p>pris: ${basket[i].price},-</p>
-        </article>
+        <tr>
+          <td>
+            <button id="item-${i}-remove" class="remove">-</button>
+                ${basket[i].amount}
+             <button id="item-${i}-add" class="add">+</button>
+          </td>
+            <td>${basket[i].name}</td>
+            <td>${basket[i].price},-</td>
+            <td>${basket[i].price * basket[i].amount},-</td>
+        </tr>
       `
     );
+    document
+      .querySelector(`#item-${i}-remove`)
+      .addEventListener("click", () => {
+        removeFromBasket(basket[i]);
+        showBasket();
+      });
+    document.querySelector(`#item-${i}-add`).addEventListener("click", () => {
+      addToBasket(basket[i]);
+      showBasket();
+    });
   }
 }
 
