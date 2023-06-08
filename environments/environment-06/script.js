@@ -2,22 +2,33 @@
 
 window.addEventListener("load", start);
 
+const products = [];
 const basket = [];
 
-function start() {
-  showProducts();
+async function start() {
+  await getProducts();
+  addToBasket(products[0]);
+  addToBasket(products[1]);
+  addToBasket(products[5]);
+  addToBasket(products[5]);
+  addToBasket(products[5]);
+  addToBasket(products[5]);
+  addToBasket(products[8]);
+  addToBasket(products[8]);
+
+  removeFromBasket(products[5]);
+  removeFromBasket(products[1]);
+  console.log(basket);
 }
 
 async function getProducts() {
-  const products = [];
   const response = await fetch("products.json");
   const data = await response.json();
 
   for (const key in data) {
     products.push(data[key]);
   }
-
-  return products;
+  console.log(products);
 }
 
 async function showProducts() {
@@ -60,5 +71,21 @@ function showBasket() {
 }
 
 function addToBasket(product) {
-  basket.push(product);
+  if (basket.includes(product)) {
+    product.amount++;
+  } else {
+    product.amount = 1;
+    basket.push(product);
+  }
+}
+
+function removeFromBasket(product) {
+  if (basket.includes(product)) {
+    product.amount--;
+    if (product.amount === 0) {
+      basket.splice(basket.indexOf(product), 1);
+    }
+  } else {
+    console.log("Item not in basket");
+  }
 }
