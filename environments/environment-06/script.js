@@ -71,6 +71,27 @@ function showBasket() {
       showBasket();
     });
   }
+  showBasketTotals();
+}
+
+function showBasketTotals() {
+  let totalAmounts = 0;
+  let totalPrices = 0;
+  let totalWeights = 0;
+  for (const product of basket) {
+    totalAmounts += product.amount;
+    totalPrices += product.price * product.amount;
+    totalWeights += product.weight * product.amount;
+    if (totalWeights > 2000) {
+      document.querySelector(".warning").classList.add("show");
+    } else {
+      document.querySelector(".warning").classList.remove("show");
+    }
+  }
+  document.querySelector("#total-in-basket").textContent = totalAmounts;
+  document.querySelector("#total-products").textContent = basket.length;
+  document.querySelector("#total-price").textContent = totalPrices;
+  document.querySelector("#total-weight").textContent = totalWeights;
 }
 
 function addToBasket(product) {
