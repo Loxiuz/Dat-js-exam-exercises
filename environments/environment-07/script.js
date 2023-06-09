@@ -44,13 +44,9 @@ function createStudent(event) {
 }
 
 function hasCorrectEmail(email) {
-  if (
+  return (
     email.includes("@") &&
     email.indexOf("@") >= 4 &&
     email.substring(email.indexOf("@"), email.length) === "@stud.kea.dk"
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+  );
 }
