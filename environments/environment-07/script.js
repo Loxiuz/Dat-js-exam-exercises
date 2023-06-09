@@ -47,6 +47,6 @@ function hasCorrectEmail(email) {
   return (
     email.includes("@") &&
     email.indexOf("@") >= 4 &&
-    email.substring(email.indexOf("@"), email.length) === "@stud.kea.dk"
+    email.substring(email.indexOf("@")) === "@stud.kea.dk"
   );
 }
