@@ -37,13 +37,16 @@ function createStudent(event) {
       age: createForm.age.value,
     };
     students.push(newStudent);
+  } else {
+    console.log("Email invalid");
   }
   showStudents();
 }
 
 function hasCorrectEmail(email) {
   if (
-    email.indexOf("@") > 3 &&
+    email.includes("@") &&
+    email.indexOf("@") >= 4 &&
     email.substring(email.indexOf("@"), email.length) === "@stud.kea.dk"
   ) {
     return true;
