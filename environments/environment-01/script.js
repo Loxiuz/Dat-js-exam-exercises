@@ -25,7 +25,7 @@ async function showUsers() {
       document.querySelector("#userlist").insertAdjacentHTML(
         "beforeend",
         /* html */ `
-            <li><p>Navn: ${user.name} | Aktiv: ${user.active}</p></li>
+            <li><p>Navn: ${user.name} | Aktiv: ${user.active} | Role: ${user.role}</p></li>
         `
       );
     }
