@@ -2,23 +2,24 @@
 
 window.addEventListener("load", start);
 
+const users = [];
+
 async function start() {
-  console.log(await getData());
-  await showUsers();
+  await getData();
+  showUsers();
+  console.log(users);
 }
 
 async function getData() {
-  const users = [];
   const response = await fetch("users.json");
   const data = await response.json();
+
   for (const key in data) {
     users.push(data[key]);
   }
-  return users;
 }
 
 async function showUsers() {
-  const users = await getData();
   for (const user of users) {
     if (user.role === "admin") {
       document.querySelector("#userlist").insertAdjacentHTML(
